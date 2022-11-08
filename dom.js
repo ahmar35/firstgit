@@ -1,9 +1,21 @@
-var items =document.querySelectorAll("li");
-console.log(items[1])
-items[1].style.backgroundColor="green"
-var odd=document.querySelectorAll("li:nth-Child(odd)")
-for (let i=0;i<odd.length;i++){
-    odd[i].style.backgroundColor="green"
-}
-var invisible=document.querySelectorAll('li')
-invisible[2].style.visibility="hidden"
+var itemlist=document.querySelector("#items")
+itemlist.parentElement.style.backgroundColor="#f4f4f4"
+itemlist.lastElementChild.style.backgroundColor="red"
+itemlist.lastChild.textContent="avv"
+itemlist.firstChild.textContent="avv"
+itemlist.firstElementChild.textContent="avv"
+console.log(itemlist.nextSibling)
+console.log(itemlist.nextElementSibling)
+itemlist.previousElementSibling.style.color="green"
+console.log(itemlist.previoussibling)
+var newdiv=document.createElement("div")
+newdiv.classname="hello"
+newdiv.id="hello1"
+newdiv.setAttribute("title","hello div")
+var newdivtext=document.createTextNode("hello world")
+newdiv.appendChild(newdivtext)
+var container=document.querySelector("header .container")
+var h1=document.querySelector("header h1")
+container.insertBefore(newdiv,h1)
+var parentnode=document.getElementById("items")
+parentnode.innerHTML='<li>hello world</li>'+parentnode.innerHTML

@@ -67,17 +67,22 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
     <script>
 
         function registerUser(event) {
-            event.preventDefault()
             const name=document.getElementById("name").value;
             const mail=document.getElementById('mail').value;
             const contact=document.getElementById("phone").value;
             const time=document.getElementById("time").value;
             const date=document.getElementById("date").value;
-            localStorage.setItem("name",name)
-            localStorage.setItem("Email",mail)
-            localStorage.setItem("contact number",contact)
-            localStorage.setItem("Time",time)
-            localStorage.setItem("Date",date)
+            obj={
+                name,
+                mail,
+                contact,
+                time,
+                date
+            }
+            localStorage.setItem("userdetails",JSON.stringify(obj))
+
+            event.preventDefault()
+
 
 
 

@@ -34,9 +34,13 @@ function removeitem(e){
 function filteritems(e){
     //convert to lowercase
     var text=e.target.value.toLowerCase()
+    console.log(text)
     var items=itemList.getElementsByTagName("li")
+    console.log(items)
+
     Array.from(items).forEach(function(item){
         var itemname=item.firstChild.textContent
+        console.log(itemname)
         var description=item.childNodes[1].textContent
         if(itemname.toLowerCase().indexOf(text)!=-1 || description.toLowerCase().indexOf(description)!=-1) {
             item.style.display="block"

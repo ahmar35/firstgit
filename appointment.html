@@ -1,0 +1,95 @@
+<html>
+
+<head>
+
+<style>
+
+    .block{display: block;width:25%;height: 30px; background-color: tomato;font-size:16px;cursor:pointer ;}
+
+body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-centre-images-free-download-png-hd.png);}
+
+</style>
+
+</head>
+
+<body>
+
+<center>
+
+
+
+<h1 style=center;color: tomato;">Book a call</h1>
+
+<h3>Book a call slot and our representative will call you within 1 hour of selected time</h3>
+
+<hr width="100%" size="4px">
+
+    <form  onsubmit="registerUser(event)">
+
+        Name:
+
+        <input type="text" id="name" Name="Name" required>
+
+        <br>
+
+        <br>
+
+
+
+        Email:<input type="email" id="mail" required>
+
+        <br>
+
+        <br>
+
+
+
+        Phone:<input type="text" id="phone" required>
+
+        <br>
+
+        <br>
+
+
+
+        Time for call:<input type="date" id="date" required><input type="time" id="time"required>
+
+        <br>
+
+        <br>
+
+        <button class="block";type="button">GET A CALL</button> 
+
+</center>
+
+    </form>
+
+    <script>
+
+        function registerUser(event) {
+            event.preventDefault()
+            const name=document.getElementById("name").value;
+            const mail=document.getElementById('mail').value;
+            const contact=document.getElementById("phone").value;
+            const time=document.getElementById("time").value;
+            const date=document.getElementById("date").value;
+            localStorage.setItem("name",name)
+            localStorage.setItem("Email",mail)
+            localStorage.setItem("contact number",contact)
+            localStorage.setItem("Time",time)
+            localStorage.setItem("Date",date)
+
+
+
+
+
+
+            
+
+        }
+
+    </script>
+
+</body>
+
+</html>

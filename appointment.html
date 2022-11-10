@@ -88,14 +88,47 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
             shownewuseronscreen(obj)
         }
         function shownewuseronscreen(user){
+            if (localStorage.getItem(user.mail)!=null){
+                removeUserFromScreen(user.mail)
+            }
             const parentNode=document.getElementById("listuser")
-            var childHTML=`<li> ${user.name} - ${user.mail}</li>`
+            var childHTML=`<li id=${user.mail}> ${user.name} - ${user.mail}
+                <button onclick=deleteuser("${user.mail}")>deleteuser</button>
+                <button onclick=edituser("${user.mail}","${user.name}")>edit</button>
+                </li>`
             parentNode.innerHTML=parentNode.innerHTML+childHTML
         }
+        
+            //Edit User
 
-    
+        function edituser(mail, name){
+
+            document.getElementById('mail').value = mail;
+            document.getElementById('name').value = name;
+            deleteuser(mail)
+
+
+        }
+        function deleteuser(mail){
+            localStorage.removeItem(mail)
+            console.log(mail)
+            removeUserFromScreen(mail)
+        }
+        function removeUserFromScreen(mail){
+            const parentNode=document.getElementById("listuser")
+
+            const childNodetobeDeleted=document.getElementById(mail)
+            if (childNodetobeDeleted){
+
+            
+                parentNode.removeChild(childNodetobeDeleted)
+            }
+        }  
+
+        
     </script>
 
 </body>
+
 
 </html>

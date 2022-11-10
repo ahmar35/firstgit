@@ -44,7 +44,7 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
 
 
 
-        Phone:<input type="text" id="phone" required>
+        Phone:<input type="text" id="phone" >
 
         <br>
 
@@ -52,7 +52,7 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
 
 
 
-        Time for call:<input type="date" id="date" required><input type="time" id="time"required>
+        Time for call:<input type="date" id="date" ><input type="time" id="time">
 
         <br>
 
@@ -63,6 +63,7 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
 </center>
 
     </form>
+    <ul id="listuser" ></ul>
 
     <script>
 
@@ -79,20 +80,20 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
                 time,
                 date
             }
-            localStorage.setItem("userdetails",JSON.stringify(obj))
+            localStorage.setItem(obj.mail,JSON.stringify(obj))
 
             event.preventDefault()
-
-
-
-
-
-
-
-            
-
+            var newuser=(JSON.parse(localStorage.getItem(obj.mail)))  
+            console.log(newuser)
+            shownewuseronscreen(obj)
+        }
+        function shownewuseronscreen(user){
+            const parentNode=document.getElementById("listuser")
+            var childHTML=`<li> ${user.name} - ${user.mail}</li>`
+            parentNode.innerHTML=parentNode.innerHTML+childHTML
         }
 
+    
     </script>
 
 </body>

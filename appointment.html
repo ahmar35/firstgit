@@ -93,7 +93,7 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
             }
             const parentNode=document.getElementById("listuser")
             var childHTML=`<li id=${user.mail}> ${user.name} - ${user.mail}
-                <button onclick=deleteuser("${user.mail}")>deleteuser</button>
+                <button onclick =deleteuser("${user.mail}")>deleteuser</button>
                 <button onclick=edituser("${user.mail}","${user.name}")>edit</button>
                 </li>`
             parentNode.innerHTML=parentNode.innerHTML+childHTML

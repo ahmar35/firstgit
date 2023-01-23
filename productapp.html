@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>  
+    <form  onsubmit="savetolocalstorage(event)">
+        PRODUCT ID:<input type="text" id="ID" name="product" />
+        <label>SELLING PRICE</label> :<input type="text" id="PRICE" name="price" required/>
+        <label>PRODUCT NAME</label>:<input type="text" id="NAME" name="name" required/>
+ 
+        <button class="block";type="button">ADD PRODUCT</button> 
+    </form>
+    <h1 id="header-title">PRODUCTS</h1>
+
+    <ul id="productlist" ></ul>
+    <script>
+        function savetolocalstorage(event){
+        event.preventDefault()
+        const ID=event.target.ID.value;
+        const PRICE=event.target.PRICE.value;
+        const NAME=event.target.NAME.value;
+        //localStorage.setItem("expense",expense)
+        //localStorage.setItem("description",description)
+        //localStorage.setItem("category",category)
+        const obj={
+            ID:ID,
+            PRICE:PRICE,
+            NAME:NAME
+        }
+        localStorage.setItem(obj.description,JSON.stringify(obj))
+        showProduct(obj)
+        }
+        
+
+
+
+
+        function showProduct(product){
+            const parentNode=document.getElementById('productlist')
+            const childHTML=`<li id='${product.details}'> ${product.ID}-${product.PRICE}-${product.NAME}
+                <button onclick="deleteuser('${product.details}')" > Delete </button> 
+
+                    </li>`
+                parentNode.innerHTML=parentNode.innerHTML+childHTML;
+        
+        }
+
+        function deleteuser(details){
+            localStorage.removeItem(details)
+            removeUserFromScreen(details)
+
+        }
+        function removeUserFromScreen(details){
+            const parentNode=document.getElementById('productlist')
+            const childNodetobeDeleted=document.getElementById(details)
+            parentNode.removeChild(childNodetobeDeleted)
+        }
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+</body>   
+
+</html>

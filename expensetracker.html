@@ -35,24 +35,14 @@
         showExpenseDetails(obj)
         }
         
-        window.addEventListener("DOMContentLoaded", () => {
-            const localStorageObj = localStorage;
-            const localstoragekeys  = Object.keys(localStorageObj)
 
-            for(var i =0; i< localstoragekeys.length; i++){
-                const key = localstoragekeys[i]
-                const userDetailsString = localStorageObj[key];
-                const userDetailsObj = JSON.parse(userDetailsString);
-                showExpenseDetails(userDetailsObj)
-                }
-            })
 
 
 
         function showExpenseDetails(expense){
             const parentNode=document.getElementById('expenselist')
             const childHTML=`<li id='${expense.description}'> ${expense.expenseAmount}-${expense.description}
-                <button onclick=deleteuser('${expense.description}') > Delete </button> 
+                <button onclick="deleteuser('${expense.description}')" > Delete </button> 
                 <button onclick=edit('${expense.description}','${expense.expenseAmount}','${expense.category}') > Edit </button> 
 
                     </li>`

@@ -87,6 +87,18 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
             console.log(newuser)
             shownewuseronscreen(obj)
         }
+        
+        window.addEventListener("DOMContentLoaded", () => {
+                const localStorageObj = localStorage;
+                const localstoragekeys  = Object.keys(localStorageObj)
+
+                for(var i =0; i< localstoragekeys.length; i++){
+                    const key = localstoragekeys[i]
+                    const userDetailsString = localStorageObj[key];
+                    const userDetailsObj = JSON.parse(userDetailsString);
+                    shownewuseronscreen(userDetailsObj)
+                }
+            })
         function shownewuseronscreen(user){
             if (localStorage.getItem(user.mail)!=null){
                 removeUserFromScreen(user.mail)

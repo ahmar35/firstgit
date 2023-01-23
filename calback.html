@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <HEAD>
+    </HEAD>
+    <H1>CALLBACK </H1>
+
+        <body>
+            <script>
+                const posts=[
+                    {title:'post 1' ,body:'this is post 1',createdat:new Date().getTime()},
+                    {title:'post 2' ,body:'this is post 2',createdat:new Date().getTime()}
+
+                ]
+                let intervalID;
+                function getPosts(){
+                    clearInterval(intervalID);
+                    intervalID=setInterval(()=> {
+                  
+                        let output='';
+                            for(let i=0;i<posts.length;i++){
+                                output+=`<li>${posts[i].title}-lastUpdated${(new Date().getTime()-posts[i].createdat)/1000}  seconds ago </li>`
+                            }
+                            document.body.innerHTML=output;
+                        },1000)
+                    }
+                
+            
+
+                    
+                
+
+                function createPost(post,callback){
+                    setTimeout(()=>{
+                        posts.push({...post,createdat:new Date().getTime()} )
+                        callback()
+
+                    },2000)
+                }
+                function create4Post(post,callback){
+                    setTimeout(()=>{
+                        posts.push({...post,createdat:new Date().getTime()} )
+                        callback()
+
+                    },5000)
+
+                }
+                createPost({title:'post 3',body:'this is post 3'},getPosts)
+
+                create4Post({title:'post 4',body:'this is post 4'},getPosts)
+
+
+            </script>
+
+        </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <HEAD>
+    </HEAD>
+    <H1>CALLBACK </H1>
+
+        <body>
+            <script>
+                const posts=[
+                    {title:'post 1' ,body:'this is post 1',createdat:new Date().getTime()},
+                    {title:'post 2' ,body:'this is post 2',createdat:new Date().getTime()}
+
+                ]
+                let intervalID;
+                function getPosts(){
+                    setTimeout(()=> {
+                  
+                        let output='';
+                            for(let i=0;i<posts.length;i++){
+                                output+=`<li>${posts[i].title} 
+                                    </li>`
+                            }
+                            document.body.innerHTML=output;
+                        },1000)
+                    }
+                
+            
+
+
+                
+
+                function createPost(post){
+                    return new Promise((res,rej)=>{
+                    setTimeout(()=>{
+
+                        posts.push(post)
+                        const error=false
+                        if(!error){
+                            res()
+
+                        }else{
+                            rej('error')
+                        }
+
+                    },2000)
+                })
+            }
+            function deletepost(){
+                return new Promise( (resolve, reject) => {
+                setTimeout(()=>{
+
+                    
+                if (posts.length>0){
+            
+                    resolve(posts.pop())
+        
+                }   else{
+                    reject('array empty')
+                }
+                
+            },1000)
+        })
+
+    
+}
+                const user={
+                    username:"ahmar",
+                    lastactivitytime:"14 Feb"
+                }
+                let updatedtime=''
+                function updatelastactivitytime() {
+                    return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                        user.lastactivitytime=new Date().getTime()
+                        resolve(user.lastactivitytime)
+                        
+                    
+                        },1000)
+                    })
+                }
+            
+ 
+
+                Promise.all([createPost({title:'post 3',body:'this is post 3}),updatelastactivitytime()])
+                .then(()=>{
+                getPosts()
+                console.log(updatelastactivitytime())
+                deletepost().then(()=>{
+                    getPosts()
+               Promise.all ([createPost({title:'post 4',body:'this is post 4'}),updatelastactivitytime()])
+                .then(()=>{
+                    getPosts()
+                })
+
+                })
+
+            })
+            .catch((err)=>{
+                console.log(err)
+
+            })
+
+
+
+                    
+
+                
+
+
+            </script>
+
+        </body>
+</html>

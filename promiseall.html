@@ -42,7 +42,7 @@
                             rej('error')
                         }
 
-                    },2000)
+                    },1000)
                 })
             }
             function deletepost(){
@@ -58,7 +58,7 @@
                     reject('array empty')
                 }
                 
-            },1000)
+            },3000)
         })
 
     
@@ -81,15 +81,16 @@
             
  
 
-                Promise.all([createPost({title:'post 3',body:'this is post 3}),updatelastactivitytime()])
+                Promise.all([createPost({title:'post 3',body:'this is post 3'}),updatelastactivitytime()])
                 .then(()=>{
                 getPosts()
-                console.log(updatelastactivitytime())
+                console.log(user.lastactivitytime)
                 deletepost().then(()=>{
                     getPosts()
-               Promise.all ([createPost({title:'post 4',body:'this is post 4'}),updatelastactivitytime()])
+                Promise.all ([createPost({title:'post 4',body:'this is post 4'}),updatelastactivitytime()])
                 .then(()=>{
                     getPosts()
+                    console.log(user.lastactivitytime)
                 })
 
                 })

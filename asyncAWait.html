@@ -14,27 +14,27 @@
         ]
         let intervalID;
         function getPosts() {
-            return new Promise((res,rej)=>{
-            setTimeout(() => {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
 
-                let output = '';
-                for (let i = 0; i < posts.length; i++) {
-                    output += `<li>${posts[i].title} 
+                    let output = '';
+                    for (let i = 0; i < posts.length; i++) {
+                        output += `<li>${posts[i].title} 
                                     </li>`
-                }
-                document.body.innerHTML = output;
-                res(output)
-            }, 1000)
-        })
-    }
+                    }
+                    document.body.innerHTML = output;
+                    res(output)
+                }, 1000)
+            })
+        }
 
 
 
 
 
 
-            function createPost(post) {
-                return new Promise((res, rej) => {
+        function createPost(post) {
+            return new Promise((res, rej) => {
                 setTimeout(() => {
 
                     posts.push(post)
@@ -49,7 +49,7 @@
                 }, 1000)
             })
         }
-            function deletepost() {
+        function deletepost() {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
 
@@ -86,33 +86,19 @@
 
 
 
-         async function promise () {
+        async function promise() {
 
-            await Promise.all([createPost ({ title: 'post 3', body: 'this is post 3' }),updatelastactivitytime()])
+            await Promise.all([createPost({ title: 'post 3', body: 'this is post 3' }), updatelastactivitytime()])
             console.log(user.lastactivitytime)
 
             await getPosts()
             await deletepost()
             await getPosts()
-            await Promise.all([createPost ({ title: 'post 4', body: 'this is post 3' }),updatelastactivitytime()])
+            await Promise.all([createPost({ title: 'post 4', body: 'this is post 4' }), updatelastactivitytime()])
             await getPosts()
             console.log(user.lastactivitytime)
-         }
-         promise()
-              
- 
-          
-
-
-                
-
-
-
-
-
-
-
-
+        }
+        promise()
 
 
 

@@ -64,6 +64,7 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
 
     </form>
     <ul id="listuser" ></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
 
     <script>
 
@@ -80,15 +81,24 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
                 time,
                 date
             }
-            localStorage.setItem(obj.mail,JSON.stringify(obj))
+           //localStorage.setItem(obj.mail,JSON.stringify(obj))
+
+            axios.post("https://crudcrud.com/api/634aa7dd95d642ddad07aa156a80eccb/appointmentData",obj)
+            .then((response  )=>{
+                shownewuseronscreen(response.data)
+
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
 
             event.preventDefault()
             var newuser=(JSON.parse(localStorage.getItem(obj.mail)))  
             console.log(newuser)
-            shownewuseronscreen(obj)
-        }
+    }
         
-        window.addEventListener("DOMContentLoaded", () => {
+/*          window.addEventListener("DOMContentLoaded", () => {
                 const localStorageObj = localStorage;
                 const localstoragekeys  = Object.keys(localStorageObj)
 
@@ -98,7 +108,7 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
                     const userDetailsObj = JSON.parse(userDetailsString);
                     shownewuseronscreen(userDetailsObj)
                 }
-            })
+            })  */
         function shownewuseronscreen(user){
             if (localStorage.getItem(user.mail)!=null){
                 removeUserFromScreen(user.mail)

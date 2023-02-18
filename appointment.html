@@ -126,13 +126,14 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
                     shownewuseronscreen(userDetailsObj)
                 } */
         function shownewuseronscreen(user){
-            if (localStorage.getItem(user.mail)!=null){
+            
+           /*  if (localStorage.getItem(user.mail)!=null){
                 removeUserFromScreen(user.mail)
-            }
+            } */
             const parentNode=document.getElementById("listuser")
-            var childHTML=`<li id=${user.mail}> ${user.name} - ${user.mail}
-                <button onclick =deleteuser("${user.mail}")>deleteuser</button>
-                <button onclick=edituser("${user.mail}","${user.name}")>edit</button>
+            var childHTML=`<li id=${user._id}> ${user.name} - ${user.mail}
+                <button onclick =deleteuser("${user._id}")>deleteuser</button>
+                <button onclick=edituser("${user._id}","${user.name}")>edit</button>
                 </li>`
             parentNode.innerHTML=parentNode.innerHTML+childHTML
         }
@@ -143,19 +144,27 @@ body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-ce
 
             document.getElementById('mail').value = mail;
             document.getElementById('name').value = name;
-            deleteuser(mail)
+            deleteuser(userId)
 
 
         }
-        function deleteuser(mail){
-            localStorage.removeItem(mail)
+        function deleteuser(userId){
+            axios.delete(`https://crudcrud.com/api/634aa7dd95d642ddad07aa156a80eccb/appointmentData/${userId}`)
+            .then((response  )=>{
+                removeUserFromScreen(userId)
+
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+           /*  localStorage.removeItem(mail)
             console.log(mail)
-            removeUserFromScreen(mail)
+            removeUserFromScreen(mail) */
         }
-        function removeUserFromScreen(mail){
+        function removeUserFromScreen(userId){
             const parentNode=document.getElementById("listuser")
 
-            const childNodetobeDeleted=document.getElementById(mail)
+            const childNodetobeDeleted=document.getElementById(userId)
             if (childNodetobeDeleted){
 
             

@@ -2,177 +2,188 @@
 
 <head>
 
-<style>
+    <style>
+        .block {
+            display: block;
+            width: 25%;
+            height: 30px;
+            background-color: tomato;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    .block{display: block;width:25%;height: 30px; background-color: tomato;font-size:16px;cursor:pointer ;}
-
-body {background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-centre-images-free-download-png-hd.png);}
-
-</style>
+        body {
+            background-image: url(https://freepngimg.com/thumb/machine/40018-1-call-centre-images-free-download-png-hd.png);
+        }
+    </style>
 
 </head>
 
 <body>
 
-<center>
+    <center>
 
 
 
-<h1 style=center;color: tomato;">Book a call</h1>
+        <h1 style=center;color: tomato;">Book a call</h1>
 
-<h3>Book a call slot and our representative will call you within 1 hour of selected time</h3>
+        <h3>Book a call slot and our representative will call you within 1 hour of selected time</h3>
 
-<hr width="100%" size="4px">
+        <hr width="100%" size="4px">
 
-    <form  onsubmit="registerUser(event)">
+        <form onsubmit="registerUser(event)">
 
-        Name:
+            Name:
 
-        <input type="text" id="name" Name="Name" required>
+            <input type="text" id="name" Name="Name" required>
 
-        <br>
+            <br>
 
-        <br>
-
-
-
-        Email:<input type="email" id="mail" required>
-
-        <br>
-
-        <br>
+            <br>
 
 
 
-        Phone:<input type="text" id="phone" >
+            Email:<input type="email" id="mail" required>
 
-        <br>
+            <br>
 
-        <br>
+            <br>
 
 
 
-        Time for call:<input type="date" id="date" ><input type="time" id="time">
+            Phone:<input type="text" id="phone">
 
-        <br>
+            <br>
 
-        <br>
+            <br>
 
-        <button class="block";type="button">GET A CALL</button> 
 
-</center>
+
+            Time for call:<input type="date" id="date"><input type="time" id="time">
+
+            <br>
+
+            <br>
+
+            <button class="block" ;type="button">GET A CALL</button>
+
+    </center>
 
     </form>
-    <ul id="listuser" ></ul>
+    <ul id="listuser"></ul>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
 
     <script>
 
         function registerUser(event) {
-            const name=document.getElementById("name").value;
-            const mail=document.getElementById('mail').value;
-            const contact=document.getElementById("phone").value;
-            const time=document.getElementById("time").value;
-            const date=document.getElementById("date").value;
-            obj={
+            const name = document.getElementById("name").value;
+            const mail = document.getElementById('mail').value;
+            const contact = document.getElementById("phone").value;
+            const time = document.getElementById("time").value;
+            const date = document.getElementById("date").value;
+            obj = {
                 name,
                 mail,
                 contact,
                 time,
                 date
             }
-           //localStorage.setItem(obj.mail,JSON.stringify(obj))
+            //localStorage.setItem(obj.mail,JSON.stringify(obj))
 
-            axios.post("https://crudcrud.com/api/634aa7dd95d642ddad07aa156a80eccb/appointmentData",obj)
-            .then((response  )=>{
-                shownewuseronscreen(response.data)
+            axios.post("https://crudcrud.com/api/31bca28839aa40c99dc1d94829d5aec5/appointmentData", obj)
+                .then((response) => {
+                    shownewuseronscreen(response.data)
 
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
 
 
             event.preventDefault()
-            var newuser=(JSON.parse(localStorage.getItem(obj.mail)))  
+            var newuser = (JSON.parse(localStorage.getItem(obj.mail)))
             console.log(newuser)
-    }
-        
-          window.addEventListener("DOMContentLoaded", () => {
-            axios.get("https://crudcrud.com/api/634aa7dd95d642ddad07aa156a80eccb/appointmentData")
-            .then((res)=>{
-
-                for(var i=0; i<res.data.length;i++){
-                    shownewuseronscreen(res.data[i])
-
-                }
-                
-
-            })
-            .catch((err)=>{
-                console.log(err)
-                shownewuseronscreen(err)
-
-            })
-        })  
-
-               /*  const localStorageObj = localStorage;
-                const localstoragekeys  = Object.keys(localStorageObj)
-
-                for(var i =0; i< localstoragekeys.length; i++){
-                    const key = localstoragekeys[i]
-                    const userDetailsString = localStorageObj[key];
-                    const userDetailsObj = JSON.parse(userDetailsString);
-                    shownewuseronscreen(userDetailsObj)
-                } */
-        function shownewuseronscreen(user){
-            
-           /*  if (localStorage.getItem(user.mail)!=null){
-                removeUserFromScreen(user.mail)
-            } */
-            const parentNode=document.getElementById("listuser")
-            var childHTML=`<li id=${user._id}> ${user.name} - ${user.mail}
-                <button onclick =deleteuser("${user._id}")>deleteuser</button>
-                <button onclick=edituser("${user._id}","${user.name}")>edit</button>
-                </li>`
-            parentNode.innerHTML=parentNode.innerHTML+childHTML
         }
-        
-            //Edit User
 
-        function edituser(mail, name){
+        window.addEventListener("DOMContentLoaded", () => {
+            axios.get("https://crudcrud.com/api/31bca28839aa40c99dc1d94829d5aec5/appointmentData")
+                .then((res) => {
 
-            document.getElementById('mail').value = mail;
-            document.getElementById('name').value = name;
+                    for (var i = 0; i < res.data.length; i++) {
+                        shownewuseronscreen(res.data[i])
+
+                    }
+
+
+                })
+                .catch((err) => {
+                    console.log(err)
+                    shownewuseronscreen(err)
+
+                })
+        })
+
+        /*  const localStorageObj = localStorage;
+         const localstoragekeys  = Object.keys(localStorageObj)
+
+         for(var i =0; i< localstoragekeys.length; i++){
+             const key = localstoragekeys[i]
+             const userDetailsString = localStorageObj[key];
+             const userDetailsObj = JSON.parse(userDetailsString);
+             shownewuseronscreen(userDetailsObj)
+         } */
+        function shownewuseronscreen(user) {
+
+            /*  if (localStorage.getItem(user.mail)!=null){
+                 removeUserFromScreen(user.mail)
+             } */
+            const parentNode = document.getElementById("listuser")
+            var childHTML = `<li id=${user._id}> ${user.name} - ${user.mail}
+                <button onclick =deleteuser("${user._id}")>deleteuser</button>
+                <button onclick=edituser("${user.mail}","${user.name}","${user._id}")>edit</button>
+                </li>`
+            parentNode.innerHTML = parentNode.innerHTML + childHTML
+        }
+
+        //Edit User
+
+        function edituser(mail, name, userId) {
+            document.getElementById("mail").value = mail;
+            document.getElementById("name").value = name;
+
+
+
             deleteuser(userId)
 
 
+
+
         }
-        function deleteuser(userId){
-            axios.delete(`https://crudcrud.com/api/634aa7dd95d642ddad07aa156a80eccb/appointmentData/${userId}`)
-            .then((response  )=>{
-                removeUserFromScreen(userId)
+        function deleteuser(userId) {
+            axios.delete(`https://crudcrud.com/api/31bca28839aa40c99dc1d94829d5aec5/appointmentData/${userId}`)
+                .then((response) => {
+                    removeUserFromScreen(userId)
 
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
-           /*  localStorage.removeItem(mail)
-            console.log(mail)
-            removeUserFromScreen(mail) */
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            /*  localStorage.removeItem(mail)
+             console.log(mail)
+             removeUserFromScreen(mail) */
         }
-        function removeUserFromScreen(userId){
-            const parentNode=document.getElementById("listuser")
+        function removeUserFromScreen(userId) {
+            const parentNode = document.getElementById("listuser")
 
-            const childNodetobeDeleted=document.getElementById(userId)
-            if (childNodetobeDeleted){
+            const childNodetobeDeleted = document.getElementById(userId)
+            if (childNodetobeDeleted) {
 
-            
+
                 parentNode.removeChild(childNodetobeDeleted)
             }
-        }  
+        }
 
-        
+
     </script>
 
 </body>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>PRACTICE</h1>
+    <form onsubmit="saveToLocalStorage(Event)">
+        <label>Name<input type="text" id="name"></label>
+        <label>Contact <input type="text" id="contact"></label>
+        <label>Choose</label>
+        <select id="category" style="width:100px">
+            <option value="Male">Male</option>
+            <option value="FEMale">Female</option>
+            <option value="other">Others</option>
+        </select>
+        <button>Submit</button>
+    </form>
+    <ul id="listofuser"></ul>
+
+    <script>
+        function saveToLocalStorage(Event) {
+            event.preventDefault()
+
+
+            const Name = document.getElementById("name").value
+            const Contact = document.getElementById("contact").value
+            const Choose = document.getElementById("category").value
+            const info = {
+                Name: Name,
+                Contact: Contact,
+                Choose: Choose
+            }
+            localStorage.setItem(info.Contact, JSON.stringify(info))
+            showNewUserOnScreen(info)
+
+
+
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+            const localStorageObj = localStorage;
+            const localstoragekeys = Object.keys(localStorageObj)
+            for (var i = 0; i < localstoragekeys.length; i++) {
+
+                const key = JSON.parse(localStorageObj[localstoragekeys[i]])
+                showNewUserOnScreen(key)
+
+
+
+            }
+
+        })
+
+
+
+
+        function showNewUserOnScreen(info) {
+            if (localStorage.getItem(info.Contact)!=null){
+                remove(info.Contact)
+            }
+
+            const parentNode = document.getElementById("listofuser")
+            const childHTML = `<li id="${info.Contact}"> ${info.Name}- ${info.Contact}- ${info.Choose}
+                <button onclick=deleteinfo('${info.Contact}')>Delete</button>
+
+                <button onclick=editinfo('${info.Name}','${info.Contact}','${info.Choose}')> Edit</button> 
+
+                </li>`
+                parentNode.innerHTML = parentNode.innerHTML + childHTML;
+
+
+        }
+
+        function editinfo(Contact,Name, Choose) {
+            document.getElementById("name").value = Name
+            document.getElementById("contact").value = Contact
+            document.getElementById("category").value = Choose
+            deleteinfo(Contact)
+
+
+
+        }
+        function deleteinfo(Contact) {
+            localStorage.removeItem(Contact)
+            remove(Contact)
+
+        }
+        function remove(Contact) {
+
+            const parentNode = document.getElementById("listofuser")
+            const childNodetobeDeleted = document.getElementById(Contact)
+            if (childNodetobeDeleted){
+                parentNode.removeChild(childNodetobeDeleted)
+            }
+            
+        }
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

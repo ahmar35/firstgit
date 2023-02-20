@@ -92,7 +92,7 @@
 
             axios.post("https://crudcrud.com/api/31bca28839aa40c99dc1d94829d5aec5/appointmentData", obj)
                 .then((response) => {
-                    shownewuseronscreen(response.data)
+                shownewuseronscreen(response.data)
 
                 })
                 .catch((err) => {
@@ -101,8 +101,7 @@
 
 
             event.preventDefault()
-            var newuser = (JSON.parse(localStorage.getItem(obj.mail)))
-            console.log(newuser)
+            
         }
 
         window.addEventListener("DOMContentLoaded", () => {

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>SUPERMALL</h1>
+    <form onsubmit="saveToServer(Event)">
+        <label> Price <input type="text" id="price"> </label>
+        <label> ProductName <input type="text" id="productname"></label>
+        <label>Category </label>
+        <select id="category" style="width:100px">
+            <option value="Electronics">Electronics</option>
+            <option value="SkinCare">SkinCare</option>
+            <option value="Food">Food</option>
+        </select>
+        <button>Add Product</button>
+    </form>
+    <ui id="electronicsproduct">
+        <h2>Electronics items</h2>
+    </ui>
+    <ui id="skinproduct">
+        <h2>SkinCare items</h2>
+    </ui>
+    <ui id="fooditems">
+        <h2>Food items</h2>
+    </ui>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+
+    <script>
+            const map={
+                "Electronics":"electronicsproduct",
+                "SkinCare":"skinproduct",
+                "Food":"fooditems"
+            }
+  
+            
+        function saveToServer(Event) {
+            event.preventDefault()
+            const Price = document.getElementById("price").value;
+            const ProductName = document.getElementById("productname").value;
+            const Category = document.getElementById("category").value
+            const info = {
+                Price: Price,
+                ProductName: ProductName,
+                Category: Category
+            }
+
+
+            axios.post("https://crudcrud.com/api/5489de80d3c346a99ac7e9e3a8193332/cart", info)
+                .then((Response) => {
+                    showUserOnScreen(Response.data)
+
+                })
+
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+
+            axios.get("https://crudcrud.com/api/5489de80d3c346a99ac7e9e3a8193332/cart")
+                .then((Response) => {
+                    for (var i = 0; i < Response.data.length; i++) {
+                        data = Response.data[i]
+                        showUserOnScreen(data)
+                    }
+
+                })
+
+
+        })
+        function showUserOnScreen(info) {
+          
+            const map={
+                "Electronics":"electronicsproduct",
+                "SkinCare":"skinproduct",
+                "Food":"fooditems"
+            }
+            const id=map[info.Category]
+            const parentNode = document.getElementById(id)
+        
+            const childNode = `<li id="${info._id}"> ${info.Price}-${info.ProductName}-${info.Category}
+                <button onclick=deleteinfo("${info._id}","${info.Category}")> Delete</button>
+                <button onclick=editinfo('${info.Price}','${info.ProductName}','${info.Category}','${info._id}')>Edit</button>
+
+                </li>`
+            parentNode.innerHTML=parentNode.innerHTML+childNode
+
+
+
+
+        }
+
+        function editinfo(Price, ProductName, Category, infoID) {
+            document.getElementById("price").value = Price
+            document.getElementById("productname").value = ProductName
+            document.getElementById("category").value = Category
+            deleteinfo(infoID,Category)
+        }
+        function deleteinfo(infoID,Category) {
+            axios.delete(`https://crudcrud.com/api/5489de80d3c346a99ac7e9e3a8193332/cart/${infoID}`)
+                .then((Response) => {
+
+                })
+                removeUserFromScreen(infoID,Category)
+        }
+        function removeUserFromScreen(infoID,Category) {
+            
+ 
+            console.log(Category)
+            const id=map[Category]
+
+            const parentNode=document.getElementById(id)
+            console.log(id)
+            console.log(parentNode)
+           
+            const childNodetobeDeleted = document.getElementById(infoID)
+            console.log(childNodetobeDeleted)
+            parentNode.removeChild(childNodetobeDeleted)
+
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>SUPERMALL</h1>
+    <form onsubmit="saveToServer(Event)">
+        <label> SellingPrice <input type="text" id="price"> </label>
+        <label> ProductName <input type="text" id="productname"></label>
+
+        <button>Add Product</button>
+    </form>
+    <ui id="product">
+        <h2>Products</h2>
+    </ui>
+    <ui id="finalAmount">
+        <h2>Total Value Worth Of products:</h2>
+    </ui>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+
+    <script>
+        let totalPrice = 0
+
+        function saveToServer(Event) {
+            event.preventDefault()
+            const Price = document.getElementById("price").value;
+            const ProductName = document.getElementById("productname").value;
+            const info = {
+                Price: Price,
+                ProductName: ProductName,
+                totalPrice: totalPrice
+            }
+
+
+            axios.post("https://crudcrud.com/api/e21664aa5cf04285804b7608427a6b4e/cart", info)
+                .then((Response) => {
+                    showUserOnScreen(Response.data)
+
+                })
+
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+
+            axios.get("https://crudcrud.com/api/e21664aa5cf04285804b7608427a6b4e/cart")
+                .then((Response) => {
+                    for (var i = 0; i < Response.data.length; i++) {
+                        data = Response.data[i]
+                        showUserOnScreen(data)
+                    }
+
+                })
+
+
+        })
+        function showUserOnScreen(info) {
+            const parentNode = document.getElementById("product")
+
+            const childNode = `<li id="${info._id}"> ${info.Price}-${info.ProductName}
+       <button onclick=deleteinfo("${info._id}","${info.Price}")> Delete</button>
+
+       </li>`
+            parentNode.innerHTML = parentNode.innerHTML + childNode
+
+
+
+
+            const SellingPrice = parseFloat(info.Price)
+            totalPrice += SellingPrice
+            console.log(totalPrice)
+            const totalPriceDisplay = document.getElementById("finalAmount")
+            totalPriceDisplay.textContent = `Total Value Worth Of products-Rs:${totalPrice}`
+
+
+
+
+
+
+        }
+
+
+        function deleteinfo(id, Price) {
+            axios.delete(`https://crudcrud.com/api/e21664aa5cf04285804b7608427a6b4e/cart/${id}`)
+                .then((Response) => {
+
+                })
+            console.log(totalPrice)
+            console.log(Price)
+
+
+            totalPrice -= Price
+            console.log(totalPrice)
+
+            const totalPriceDisplay = document.getElementById("finalAmount")
+
+            totalPriceDisplay.textContent = `Total Value Worth Of products-Rs:${totalPrice}`
+
+
+
+            removeUserFromScreen(id)
+        }
+        function removeUserFromScreen(infoID) {
+
+
+
+            const parentNode = document.getElementById("product")
+
+
+            const childNodetobeDeleted = document.getElementById(infoID)
+            console.log(childNodetobeDeleted)
+            parentNode.removeChild(childNodetobeDeleted)
+
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
